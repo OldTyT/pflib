@@ -34,7 +34,7 @@ Please check `example.py`
 ```python
 import os
 
-from pflib.pflib import metric
+from pflib import metric
 
 file_name = os.path.basename(__file__)
 
