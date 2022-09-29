@@ -5,7 +5,7 @@ import logging
 import urllib3
 
 
-pfver = "0.1"
+pfver = "0.0.2"
 
 
 class metric:
