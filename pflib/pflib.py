@@ -5,7 +5,7 @@ import logging
 import urllib3
 
 
-pfver = "0.0.2"
+pfver = "0.0.3"
 
 
 class metric:
@@ -25,8 +25,9 @@ class metric:
         self.pushgateway_url_path = f"/metrics/job/{self.script_name}/source/{self.hostname}"
         self.pushgateway_url = f"http://{self.pushgateway_host}:{self.pushgateway_port}{self.pushgateway_url_path}"
         self.headers = {
-            'content-type': 'application/x-www-form-urlencoded',
-            'User-Agent': f'Pushgateway-functions/{pfver}'
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': '*/*',
+            'User-Agent': f'pflib/{pfver}'
         }
 
     def __str__(self) -> str:
@@ -89,6 +90,7 @@ class metric:
     def send(self) -> bool:
         metrics = metric.__str__(self)
         logging.debug(metrics)
+        metrics = metrics + "\n"
         http = urllib3.PoolManager()
         request = http.request('POST', self.pushgateway_url, headers=self.headers, body=metrics)
         if request.status != 200:
